@@ -25,19 +25,19 @@ func NewArrayList() List {
 
 // Insert inserts a new element into the array list.
 // It takes an int64 value as a parameter and does not return anything.
-func (a *arrayList) Insert(e int64) {
-	if a.end == a.capacity-1 {
-		a.capacity = 2 * a.capacity
-		newData := make([]int64, a.capacity)
+func (al *arrayList) Insert(e int64) {
+	if al.end == al.capacity-1 {
+		al.capacity = 2 * al.capacity
+		newData := make([]int64, al.capacity)
 		var i int64
-		for ; i <= a.end; i++ {
-			newData[i] = a.data[i]
+		for ; i <= al.end; i++ {
+			newData[i] = al.data[i]
 		}
-		a.data = newData
+		al.data = newData
 	}
 
-	a.end++
-	a.data[a.end] = e
+	al.end++
+	al.data[al.end] = e
 }
 
 // InsertAt implements List.
@@ -45,21 +45,20 @@ func (*arrayList) InsertAt(i int64, e int64) {
 	panic("unimplemented")
 }
 
-// Len implements List.
-func (*arrayList) Len() int64 {
-	panic("unimplemented")
+func (al *arrayList) Len() int64 {
+	return al.end + 1
 }
 
-func (a *arrayList) String() string {
-	if a.end == -1 {
+func (al *arrayList) String() string {
+	if al.end == -1 {
 		return "[]"
 	}
 
 	sb := strings.Builder{}
 	sb.WriteString("[")
 	var i int64
-	for ; i <= a.end; i++ {
-		sb.WriteString(fmt.Sprintf(" %d", a.data[i]))
+	for ; i <= al.end; i++ {
+		sb.WriteString(fmt.Sprintf(" %d", al.data[i]))
 	}
 	sb.WriteString(" ]")
 	return sb.String()
