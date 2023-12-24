@@ -40,9 +40,31 @@ func (al *arrayList) Insert(e int64) {
 	al.data[al.end] = e
 }
 
-// InsertAt implements List.
-func (*arrayList) InsertAt(i int64, e int64) {
-	panic("unimplemented")
+func (al *arrayList) InsertAt(pos int64, e int64) {
+	if pos > al.end {
+		al.Insert(e)
+		return
+	}
+
+	var newData []int64
+	if al.end+1 == al.capacity {
+		al.capacity = al.capacity * 2
+		newData = make([]int64, al.capacity)
+
+		for j := int64(0); j < pos; j++ {
+			newData[j] = al.data[j]
+		}
+	} else {
+		newData = al.data
+	}
+
+	for j := al.end; j >= pos; j-- {
+		newData[j+1] = al.data[j]
+	}
+
+	newData[pos] = e
+	al.end++
+	al.data = newData
 }
 
 func (al *arrayList) Len() int64 {
@@ -64,12 +86,7 @@ func (al *arrayList) String() string {
 	return sb.String()
 }
 
-// List is empty: size = 0
-// insert
-// insertAt
+// TODO:
 // remove
-// count
 // read or modify element at position i
 // specify list data type
-// max size (capacity)
-// int end = -1
