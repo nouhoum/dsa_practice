@@ -7,10 +7,12 @@ var (
 )
 
 type List interface {
-	Len() int64
 	Insert(e int64)
 	InsertAt(i int64, e int64)
 	UpdateAt(i int64, e int64) error
+	RemoveAt(i int64) bool
 	Get(i int64) (int64, error)
+	Len() int64
+
 	String() string
 }

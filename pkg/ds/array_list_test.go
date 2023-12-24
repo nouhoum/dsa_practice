@@ -189,6 +189,75 @@ func TestUpdateAt(t *testing.T) {
 	}
 }
 
+func TestRemoveAt(t *testing.T) {
+	cases := []struct {
+		list               ds.List
+		pos                int64
+		expectedFound      bool
+		expectedListString string
+	}{
+		{
+			list: func() ds.List {
+				al := ds.NewArrayList()
+				return al
+			}(),
+			expectedListString: "[]",
+			pos:                1,
+			expectedFound:      false,
+		},
+		{
+			list: func() ds.List {
+				al := ds.NewArrayList()
+				al.Insert(12)
+				al.Insert(21)
+				al.Insert(13)
+				al.Insert(31)
+				return al
+			}(),
+			expectedListString: "[ 12 21 31 ]",
+			pos:                2,
+			expectedFound:      true,
+		},
+		{
+			list: func() ds.List {
+				al := ds.NewArrayList()
+				al.Insert(12)
+				al.Insert(21)
+				al.Insert(13)
+				al.Insert(31)
+				return al
+			}(),
+			expectedListString: "[ 12 21 13 ]",
+			pos:                3,
+			expectedFound:      true,
+		},
+		{
+			list: func() ds.List {
+				al := ds.NewArrayList()
+				al.Insert(12)
+				al.Insert(21)
+				al.Insert(13)
+				al.Insert(31)
+				return al
+			}(),
+			expectedListString: "[ 12 21 13 31 ]",
+			pos:                4,
+			expectedFound:      false,
+		},
+	}
+
+	for _, test := range cases {
+		found := test.list.RemoveAt(test.pos)
+		if test.list.String() != test.expectedListString {
+			t.Errorf("Expected string value to be %s, but got %s", test.expectedListString, test.list.String())
+		}
+
+		if found != test.expectedFound {
+			t.Errorf("Expected string value to be %v, but got %v", test.expectedFound, found)
+		}
+	}
+}
+
 func TestLen(t *testing.T) {
 	cases := []struct {
 		al          ds.List

@@ -103,7 +103,24 @@ func (al *arrayList) String() string {
 	return sb.String()
 }
 
+// RemoveAt removes an element at the specified index in the arrayList.
+//
+// Parameters:
+// - i: the index of the element to be removed.
+//
+// Returns:
+// - bool: true if the element was successfully removed, false otherwise.
+func (al *arrayList) RemoveAt(i int64) bool {
+	if i > al.end || al.end == -1 {
+		return false
+	}
+
+	for j := i; j <= al.end; j++ {
+		al.data[i] = al.data[i+1]
+	}
+	al.end--
+	return true
+}
+
 // TODO:
-// remove
-// read or modify element at position i
 // specify list data type
