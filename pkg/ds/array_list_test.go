@@ -26,8 +26,6 @@ func TestInsert(t *testing.T) {
 }
 
 func TestLen(t *testing.T) {
-	a := ds.NewArrayList()
-
 	cases := []struct {
 		al          ds.List
 		expectedLen int64
@@ -65,20 +63,5 @@ func TestLen(t *testing.T) {
 		if test.expectedLen != test.al.Len() {
 			t.Errorf("Expected len value to be %d, but got %d", test.expectedLen, test.al.Len())
 		}
-	}
-
-	if a.Len() != 0 {
-		t.Errorf("Expected len value to be 0, but got %d", a.Len())
-	}
-
-	a.Insert(4)
-	if a.Len() != 1 {
-		t.Errorf("Expected len value to be 1, but got %d", a.Len())
-	}
-
-	a.Insert(55)
-	a.Insert(14)
-	if a.Len() != 3 {
-		t.Errorf("Expected len value to be 3, but got %d", a.Len())
 	}
 }
