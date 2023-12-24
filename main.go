@@ -19,4 +19,8 @@ func main() {
 	fmt.Println("==>inserting at 2 pos")
 	a.InsertAt(3, 7)
 	fmt.Println(a)
+	a0, _ := a.Get(0)
+	fmt.Println("a[0]=", a0)
+	a4, _ := a.Get(4)
+	fmt.Println("a[4]=", a4)
 }

@@ -67,6 +67,23 @@ func (al *arrayList) InsertAt(pos int64, e int64) {
 	al.data = newData
 }
 
+func (al *arrayList) Get(i int64) (int64, error) {
+	if i > al.end {
+		return 0, ErrIndexOutOfBound
+	}
+
+	return al.data[i], nil
+}
+
+func (al *arrayList) UpdateAt(i int64, e int64) error {
+	if i > al.end {
+		return ErrIndexOutOfBound
+	}
+
+	al.data[i] = e
+	return nil
+}
+
 func (al *arrayList) Len() int64 {
 	return al.end + 1
 }
