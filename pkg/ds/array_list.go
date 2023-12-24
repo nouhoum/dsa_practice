@@ -29,10 +29,7 @@ func (al *arrayList) Insert(e int64) {
 	if al.end == al.capacity-1 {
 		al.capacity = 2 * al.capacity
 		newData := make([]int64, al.capacity)
-		var i int64
-		for ; i <= al.end; i++ {
-			newData[i] = al.data[i]
-		}
+		copy(newData, al.data)
 		al.data = newData
 	}
 
@@ -50,10 +47,7 @@ func (al *arrayList) InsertAt(pos int64, e int64) {
 	if al.end+1 == al.capacity {
 		al.capacity = al.capacity * 2
 		newData = make([]int64, al.capacity)
-
-		for j := int64(0); j < pos; j++ {
-			newData[j] = al.data[j]
-		}
+		copy(newData, al.data)
 	} else {
 		newData = al.data
 	}
