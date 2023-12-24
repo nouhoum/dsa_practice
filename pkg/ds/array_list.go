@@ -88,6 +88,11 @@ func (al *arrayList) Len() int64 {
 	return al.end + 1
 }
 
+// IsEmpty implements List.
+func (al *arrayList) IsEmpty() bool {
+	return al.end == -1
+}
+
 func (al *arrayList) String() string {
 	if al.end == -1 {
 		return "[]"

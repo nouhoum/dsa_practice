@@ -298,3 +298,45 @@ func TestLen(t *testing.T) {
 		}
 	}
 }
+
+func TestIsEmpty(t *testing.T) {
+	cases := []struct {
+		al       ds.List
+		expected bool
+	}{
+		{
+			expected: true,
+			al: func() ds.List {
+				return ds.NewArrayList()
+			}(),
+		},
+		{
+			expected: false,
+			al: func() ds.List {
+				al := ds.NewArrayList()
+				al.Insert(rand.Int63())
+				al.Insert(rand.Int63())
+				return al
+			}(),
+		},
+		{
+			expected: false,
+			al: func() ds.List {
+				al := ds.NewArrayList()
+				al.Insert(rand.Int63())
+				al.Insert(rand.Int63())
+				al.Insert(rand.Int63())
+				al.Insert(rand.Int63())
+				al.Insert(rand.Int63())
+				return al
+			}(),
+		},
+	}
+
+	for _, test := range cases {
+		isEmpty := test.al.IsEmpty()
+		if test.expected != isEmpty {
+			t.Errorf("Expected len value to be %t, but got %t", test.expected, isEmpty)
+		}
+	}
+}

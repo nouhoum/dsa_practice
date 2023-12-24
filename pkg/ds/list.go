@@ -13,6 +13,7 @@ type List interface {
 	RemoveAt(i int64) bool
 	Get(i int64) (int64, error)
 	Len() int64
+	IsEmpty() bool
 
 	String() string
 }
