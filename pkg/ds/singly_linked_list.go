@@ -36,8 +36,8 @@ func (*singlyLinkedList) InsertAt(i int64, e int64) {
 }
 
 // IsEmpty implements List.
-func (*singlyLinkedList) IsEmpty() bool {
-	panic("unimplemented")
+func (ll *singlyLinkedList) IsEmpty() bool {
+	return ll.head == nil
 }
 
 // Len implements List.
@@ -45,12 +45,10 @@ func (*singlyLinkedList) Len() int64 {
 	panic("unimplemented")
 }
 
-// RemoveAt implements List.
 func (*singlyLinkedList) RemoveAt(i int64) bool {
 	panic("unimplemented")
 }
 
-// String implements List.
 func (ll *singlyLinkedList) String() string {
 	if ll.head == nil {
 		return "[]"

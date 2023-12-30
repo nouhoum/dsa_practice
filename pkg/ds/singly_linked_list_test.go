@@ -6,6 +6,21 @@ import (
 	"github.com/nouhoum/dsa_practice/pkg/ds"
 )
 
+func TestSinglyLinkedList_IsEmpty(t *testing.T) {
+	// Test case 1: head is nil, should return true
+	ll1 := ds.NewSinglyLinkedList()
+	if !ll1.IsEmpty() {
+		t.Error("Expected IsEmpty() to return true, but it returned false")
+	}
+
+	// Test case 2: head is not nil, should return false
+	ll2 := ds.NewSinglyLinkedList()
+	ll2.Insert(1)
+	if ll2.IsEmpty() {
+		t.Error("Expected IsEmpty() to return false, but it returned true")
+	}
+}
+
 func TestSinglyLinkedList_String(t *testing.T) {
 	// Test case 1: Empty list
 	ll := ds.NewSinglyLinkedList()
@@ -25,6 +40,12 @@ func TestSinglyLinkedList_String(t *testing.T) {
 
 	ll.Insert(2)
 	expected = "[2 1]"
+	if result := ll.String(); result != expected {
+		t.Errorf("Expected %s, but got %s", expected, result)
+	}
+
+	ll.Insert(3)
+	expected = "[3 2 1]"
 	if result := ll.String(); result != expected {
 		t.Errorf("Expected %s, but got %s", expected, result)
 	}
