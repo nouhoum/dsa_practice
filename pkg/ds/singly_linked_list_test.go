@@ -1,10 +1,52 @@
 package ds_test
 
 import (
+	"math/rand"
 	"testing"
 
 	"github.com/nouhoum/dsa_practice/pkg/ds"
 )
+
+func TestSinglyLinkedList_Len(t *testing.T) {
+	cases := []struct {
+		al          ds.List
+		expectedLen int64
+	}{
+		{
+			expectedLen: 0,
+			al: func() ds.List {
+				return ds.NewSinglyLinkedList()
+			}(),
+		},
+		{
+			expectedLen: 2,
+			al: func() ds.List {
+				al := ds.NewSinglyLinkedList()
+				al.Insert(rand.Int63())
+				al.Insert(rand.Int63())
+				return al
+			}(),
+		},
+		{
+			expectedLen: 5,
+			al: func() ds.List {
+				al := ds.NewSinglyLinkedList()
+				al.Insert(rand.Int63())
+				al.Insert(rand.Int63())
+				al.Insert(rand.Int63())
+				al.Insert(rand.Int63())
+				al.Insert(rand.Int63())
+				return al
+			}(),
+		},
+	}
+
+	for _, test := range cases {
+		if test.expectedLen != test.al.Len() {
+			t.Errorf("Expected len value to be %d, but got %d", test.expectedLen, test.al.Len())
+		}
+	}
+}
 
 func TestSinglyLinkedList_IsEmpty(t *testing.T) {
 	// Test case 1: head is nil, should return true

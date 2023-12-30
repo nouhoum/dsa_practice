@@ -41,8 +41,14 @@ func (ll *singlyLinkedList) IsEmpty() bool {
 }
 
 // Len implements List.
-func (*singlyLinkedList) Len() int64 {
-	panic("unimplemented")
+func (ll *singlyLinkedList) Len() int64 {
+	var count int64
+	curr := ll.head
+	for curr != nil {
+		count++
+		curr = curr.next
+	}
+	return count
 }
 
 func (*singlyLinkedList) RemoveAt(i int64) bool {
