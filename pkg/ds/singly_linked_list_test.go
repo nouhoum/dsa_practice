@@ -313,3 +313,59 @@ func TestSinglyLinkedList_RemoveAt(t *testing.T) {
 		}
 	}
 }
+
+func TestSinglyLinkedList_UpdateAt(t *testing.T) {
+	cases := []struct {
+		list               ds.List
+		newElement         int64
+		pos                int64
+		expectedErr        error
+		expectedListString string
+	}{
+		{
+			list: func() ds.List {
+				al := ds.NewSinglyLinkedList()
+				return al
+			}(),
+			expectedListString: "[]",
+			newElement:         123,
+			expectedErr:        ds.ErrIndexOutOfBound,
+		},
+		{
+			list: func() ds.List {
+				al := ds.NewSinglyLinkedList()
+				al.Insert(4)
+				al.UpdateAt(0, 33)
+				return al
+			}(),
+			newElement:         33,
+			pos:                0,
+			expectedListString: "[33]",
+			expectedErr:        nil,
+		},
+		{
+			list: func() ds.List {
+				al := ds.NewSinglyLinkedList()
+				al.Insert(1)
+				al.Insert(55)
+				al.Insert(4)
+				return al
+			}(),
+			newElement:         42,
+			pos:                1,
+			expectedListString: "[4 42 1]",
+			expectedErr:        nil,
+		},
+	}
+
+	for _, test := range cases {
+		err := test.list.UpdateAt(test.pos, test.newElement)
+		if test.list.String() != test.expectedListString {
+			t.Errorf("Expected string value to be %s, but got %s", test.expectedListString, test.list.String())
+		}
+
+		if err != test.expectedErr {
+			t.Errorf("Expected string value to be %v, but got %v", test.expectedErr, err)
+		}
+	}
+}

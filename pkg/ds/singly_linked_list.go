@@ -112,7 +112,21 @@ func (ll *singlyLinkedList) RemoveAt(i int64) bool {
 }
 
 func (ll *singlyLinkedList) UpdateAt(i int64, e int64) error {
-	panic("unimplemented")
+	if ll.head == nil {
+		return ErrIndexOutOfBound
+	}
+
+	curr := ll.head
+	var pos int64
+	for curr != nil {
+		if pos == i {
+			curr.data = e
+			return nil
+		}
+		curr = curr.next
+		pos++
+	}
+	return ErrIndexOutOfBound
 }
 
 func (ll *singlyLinkedList) String() string {
