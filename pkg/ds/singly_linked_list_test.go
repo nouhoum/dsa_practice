@@ -93,34 +93,6 @@ func TestSinglyLinkedList_String(t *testing.T) {
 	}
 }
 
-// func TestSinglyLinkedList_Insert(t *testing.T) {
-// 	tests := []struct {
-// 		name string
-// 		list ds.List
-// 		e    int64
-// 	}{
-// 		{
-// 			name: "Inserting into an empty list",
-// 			list: ds.NewSinglyLinkedList(),
-// 			e:    1,
-// 		},
-// 		{
-// 			name: "Inserting into a non-empty list",
-// 			list: singlyLinkedList{
-// 				head: &node{value: 1},
-// 			},
-// 			e: 2,
-// 		},
-// 	}
-
-// 	for _, tt := range tests {
-// 		t.Run(tt.name, func(t *testing.T) {
-// 			tt.list.Insert(tt.e)
-// 			// Add assertions here to check if the element was inserted correctly.
-// 		})
-// 	}
-// }
-
 func TestSinglyLinkedList_Get(t *testing.T) {
 	// Test case 1: Getting an element at a valid index
 	list := ds.NewSinglyLinkedList()
@@ -166,5 +138,109 @@ func TestSinglyLinkedList_Get(t *testing.T) {
 	_, err = list.Get(10)
 	if err == nil {
 		t.Errorf("Expected an error, got nil")
+	}
+}
+
+func TestSinglyLinkedList_InsertAt(t *testing.T) {
+	cases := []struct {
+		pos          int64
+		element      int64
+		list         ds.List
+		expectedList ds.List
+	}{
+		{
+			list: func() ds.List {
+				al := ds.NewSinglyLinkedList()
+				al.Insert(1)
+				return al
+			}(),
+			pos:     0,
+			element: 23,
+			expectedList: func() ds.List {
+				al := ds.NewSinglyLinkedList()
+				al.Insert(1)
+				al.Insert(23)
+				return al
+			}(),
+		},
+		{
+			list: func() ds.List {
+				al := ds.NewSinglyLinkedList()
+				al.Insert(1)
+				al.Insert(2)
+				return al
+			}(),
+			pos:     0,
+			element: 23,
+			expectedList: func() ds.List {
+				al := ds.NewSinglyLinkedList()
+				al.Insert(1)
+				al.Insert(2)
+				al.Insert(23)
+				return al
+			}(),
+		},
+		{
+			list: func() ds.List {
+				al := ds.NewSinglyLinkedList()
+				al.Insert(1)
+				al.Insert(2)
+				return al
+			}(),
+			pos:     1,
+			element: 34,
+			expectedList: func() ds.List {
+				al := ds.NewSinglyLinkedList()
+				al.Insert(1)
+				al.Insert(34)
+				al.Insert(2)
+				return al
+			}(),
+		},
+		{
+			list: func() ds.List {
+				al := ds.NewSinglyLinkedList()
+				al.Insert(1)
+				al.Insert(2)
+				al.Insert(3)
+				return al
+			}(),
+			pos:     2,
+			element: 55,
+			expectedList: func() ds.List {
+				al := ds.NewSinglyLinkedList()
+				al.Insert(1)
+				al.Insert(55)
+				al.Insert(2)
+				al.Insert(3)
+				return al
+			}(),
+		},
+		{
+			list: func() ds.List {
+				al := ds.NewSinglyLinkedList()
+				al.Insert(1)
+				al.Insert(2)
+				al.Insert(3)
+				return al
+			}(),
+			pos:     3,
+			element: 55,
+			expectedList: func() ds.List {
+				al := ds.NewSinglyLinkedList()
+				al.Insert(55)
+				al.Insert(1)
+				al.Insert(2)
+				al.Insert(3)
+				return al
+			}(),
+		},
+	}
+
+	for _, test := range cases {
+		test.list.InsertAt(test.pos, test.element)
+		if test.list.String() != test.expectedList.String() {
+			t.Errorf("Expected list to be %s, but got %s", test.expectedList, test.list)
+		}
 	}
 }

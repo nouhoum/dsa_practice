@@ -48,7 +48,28 @@ func (ll *singlyLinkedList) Insert(e int64) {
 
 // InsertAt implements List.
 func (ll *singlyLinkedList) InsertAt(i int64, e int64) {
-	panic("unimplemented")
+	newNode := &node{data: e}
+	if i == 0 { // We insert at the begining
+		if ll.head == nil {
+			ll.head = &node{data: e}
+			return
+		}
+
+		newNode.next = ll.head
+		ll.head = newNode
+	}
+
+	var pos int64
+	curr := ll.head
+	for curr != nil {
+		if pos == i-1 { // we should insert after current
+			newNode.next = curr.next
+			curr.next = newNode
+			return
+		}
+		curr = curr.next
+		pos++
+	}
 }
 
 func (ll *singlyLinkedList) IsEmpty() bool {
