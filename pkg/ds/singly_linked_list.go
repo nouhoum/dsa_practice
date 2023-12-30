@@ -87,7 +87,28 @@ func (ll *singlyLinkedList) Len() int64 {
 }
 
 func (ll *singlyLinkedList) RemoveAt(i int64) bool {
-	panic("unimplemented")
+	if ll.head == nil {
+		return false
+	}
+
+	curr := ll.head
+	var pos int64
+	for curr != nil {
+		if pos == i-1 { // the next element should be removed
+			next := curr.next
+			if next == nil { // it's the end of the list, so no element to remove.
+				return false
+			}
+
+			curr.next = next.next
+			return true
+		}
+
+		pos++
+		curr = curr.next
+	}
+
+	return false
 }
 
 func (ll *singlyLinkedList) UpdateAt(i int64, e int64) error {
