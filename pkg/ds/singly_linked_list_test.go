@@ -121,32 +121,50 @@ func TestSinglyLinkedList_String(t *testing.T) {
 // 	}
 // }
 
-// func TestSinglyLinkedList_Get(t *testing.T) {
-// 	// Test case 1: Getting an element at a valid index
-// 	// list := &singlyLinkedList{1, 2, 3, 4, 5}
-// 	list := ds.NewSinglyLinkedList()
-// 	expected := int64(3)
-// 	result, err := list.Get(2)
-// 	if err != nil {
-// 		t.Errorf("Expected no error, got %v", err)
-// 	}
-// 	if result != expected {
-// 		t.Errorf("Expected %v, got %v", expected, result)
-// 	}
+func TestSinglyLinkedList_Get(t *testing.T) {
+	// Test case 1: Getting an element at a valid index
+	list := ds.NewSinglyLinkedList()
+	list.Insert(5)
+	list.Insert(4)
+	list.Insert(3)
+	list.Insert(2)
+	list.Insert(1)
+	expected := int64(3)
+	result, err := list.Get(2)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if result != expected {
+		t.Errorf("Expected %v, got %v", expected, result)
+	}
 
-// 	// Test case 2: Getting an element at a negative index
-// 	// list = &singlyLinkedList{1, 2, 3, 4, 5}
-// 	list = ds.NewSinglyLinkedList()
-// 	_, err = list.Get(-1)
-// 	if err == nil {
-// 		t.Errorf("Expected an error, got nil")
-// 	}
+	expected = int64(5)
+	result, err = list.Get(4)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if result != expected {
+		t.Errorf("Expected %v, got %v", expected, result)
+	}
 
-// 	// Test case 3: Getting an element at an index greater than the length of the list
-// 	// list = &singlyLinkedList{1, 2, 3, 4, 5}
-// 	list = ds.NewSinglyLinkedList()
-// 	_, err = list.Get(10)
-// 	if err == nil {
-// 		t.Errorf("Expected an error, got nil")
-// 	}
-// }
+	expected = int64(1)
+	result, err = list.Get(0)
+	if err != nil {
+		t.Errorf("Expected no error, got %v", err)
+	}
+	if result != expected {
+		t.Errorf("Expected %v, got %v", expected, result)
+	}
+
+	// Test case 2: Getting an element at a negative index
+	_, err = list.Get(-1)
+	if err == nil {
+		t.Errorf("Expected an error, got nil")
+	}
+
+	// Test case 3: Getting an element at an index greater than the length of the list
+	_, err = list.Get(10)
+	if err == nil {
+		t.Errorf("Expected an error, got nil")
+	}
+}

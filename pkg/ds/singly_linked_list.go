@@ -14,9 +14,25 @@ type singlyLinkedList struct {
 	head *node
 }
 
-// Get implements List.
-func (*singlyLinkedList) Get(i int64) (int64, error) {
-	panic("unimplemented")
+func NewSinglyLinkedList() List {
+	return &singlyLinkedList{}
+}
+
+func (ll *singlyLinkedList) Get(i int64) (int64, error) {
+	if ll.head == nil {
+		return 0, ErrIndexOutOfBound
+	}
+	var pos int64
+	curr := ll.head
+	for curr != nil {
+		if pos == i {
+			return curr.data, nil
+		}
+		curr = curr.next
+		pos++
+	}
+
+	return 0, ErrIndexOutOfBound
 }
 
 // Insert implements List.
@@ -31,16 +47,14 @@ func (ll *singlyLinkedList) Insert(e int64) {
 }
 
 // InsertAt implements List.
-func (*singlyLinkedList) InsertAt(i int64, e int64) {
+func (ll *singlyLinkedList) InsertAt(i int64, e int64) {
 	panic("unimplemented")
 }
 
-// IsEmpty implements List.
 func (ll *singlyLinkedList) IsEmpty() bool {
 	return ll.head == nil
 }
 
-// Len implements List.
 func (ll *singlyLinkedList) Len() int64 {
 	var count int64
 	curr := ll.head
@@ -51,7 +65,11 @@ func (ll *singlyLinkedList) Len() int64 {
 	return count
 }
 
-func (*singlyLinkedList) RemoveAt(i int64) bool {
+func (ll *singlyLinkedList) RemoveAt(i int64) bool {
+	panic("unimplemented")
+}
+
+func (ll *singlyLinkedList) UpdateAt(i int64, e int64) error {
 	panic("unimplemented")
 }
 
@@ -72,13 +90,4 @@ func (ll *singlyLinkedList) String() string {
 
 	sb.WriteString("]")
 	return sb.String()
-}
-
-// UpdateAt implements List.
-func (*singlyLinkedList) UpdateAt(i int64, e int64) error {
-	panic("unimplemented")
-}
-
-func NewSinglyLinkedList() List {
-	return &singlyLinkedList{}
 }
